@@ -31,7 +31,7 @@ int main()
                "5. List all contacts\n"
                "6. Save\n"
                "7. Quit\n\n");
-
+    
         printf("Enter your choice: ");
         uint8_t choice;
         __fpurge(stdin);
@@ -49,10 +49,12 @@ int main()
         {
         case 1: // Add contacts
             createContact(&addBook);
+            saveContacts(&addBook); // auto save after adding
             menuWait();
             break;
         case 2: // Delete contact
             deleteContact(&addBook);
+            saveContacts(&addBook); // auto save after adding
             menuWait();
             break;
         case 3: // Search contact
@@ -68,7 +70,8 @@ int main()
             menuWait();
             break;
         case 6: // Save
-            /* TODO */
+            saveContacts(&addBook);
+            menuWait();
             break;
         case 7: // Quit
             printf("Exiting the Application...\n");

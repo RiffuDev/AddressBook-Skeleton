@@ -379,3 +379,54 @@ void listContact(Contact *cont)
     printf("%-20s %-15s %-30s\n",
            cont->name, cont->phone, cont->email);
 }
+
+// Function to write structure to file
+uint8_t writeStructToFile(const char *filename, AddressBook *addressBook)
+{
+    FILE *file = fopen(filename, "wb"); // Open in binary write mode
+    if (file == NULL)
+    {
+        // printf("Error opening file for writing!\n");
+        perror("err_fopen");
+        return 0;
+    }
+
+    if (!fwrite(addressBook, sizeof(AddressBook), 1, file))
+    {
+        perror("Write Failed");
+        fclose(file);
+        return 0;
+    }
+    fclose(file);
+    return 1;
+}
+
+// Function to read structure from file
+uint8_t readStructFromFile(const char *filename, AddressBook *addressBook)
+{
+    FILE *file = fopen(filename, "rb"); // Open in binary read mode
+    if (file == NULL)
+    {
+        perror("err_fopen");
+        // printf("Error opening file for reading!\n");
+        return 0;
+    }
+
+    if (fread(addressBook, sizeof(AddressBook), 1, file) != 1)
+    {
+        perror("Read Failed");
+        fclose(file);
+        return 0;
+    }
+    fclose(file);
+    return 1;
+}
+
+void saveContacts(AddressBook *addressBook)
+{
+    if(!writeStructToFile(BIN_FILE, addressBook))
+    {
+        printf("Failed to Save, Try Again...\n");
+    }
+    printf("Saved to " BIN_FILE "\n");
+}

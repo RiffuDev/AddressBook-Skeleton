@@ -15,6 +15,14 @@ static Contact dummyContacts[] = {
 
 void initialize(AddressBook *addressBook) 
 {
+    uint8_t res = readStructFromFile(BIN_FILE, addressBook);
+    if(res)     //already exists no need for copy
+    {
+        // printf("File Already Exsists..\n");
+        return;
+    }
+
+    printf("File Doesnt not Exsists, Copying..\n");
     addressBook->contactCount = 0;
     int size = sizeof(dummyContacts)/sizeof(dummyContacts[0]);
 
@@ -23,5 +31,5 @@ void initialize(AddressBook *addressBook)
         addressBook->contacts[i] = dummyContacts[i];
     }
     addressBook->contactCount = size;
-
+    
 }

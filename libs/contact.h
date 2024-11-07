@@ -6,6 +6,8 @@
 #define true    1
 #define false   0
 
+#define BIN_FILE "AddressBook.bin"
+
 // #include <stdio.h>
 #include <stdio_ext.h> 
 #include <string.h>
@@ -30,6 +32,11 @@ void editContact(AddressBook *addressBook);
 void deleteContact(AddressBook *addressBook);
 void listAllContacts(AddressBook *addressBook);
 void initialize(AddressBook *addressBook);
+void saveContacts(AddressBook *addressBook);
+
+uint8_t writeStructToFile(const char* filename, AddressBook *addressBook);
+
+uint8_t readStructFromFile(const char* filename, AddressBook *addressBook);
 
 void addNewContact(Contact *newCont);
 void listContact(Contact *cont);
